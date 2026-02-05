@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Gemini ToC Settings</title>
+        <style>
+            :root {
+                /* Light Theme Defaults */
+                --bg-color: #ffffff;
+                --text-color: #1f2937;
+                --input-bg: #f3f4f6;
+                --input-border: #e5e7eb;
+                --input-text: #111827;
+                --btn-bg: #2563eb;
+                --btn-hover: #1d4ed8;
+                --btn-text: #ffffff;
+                --label-color: #4b5563;
+                --header-border: #e5e7eb;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    /* Dark Theme Overrides */
+                    --bg-color: #1a1a1a;
+                    --text-color: #f9fafb;
+                    --input-bg: #2d2d2d;
+                    --input-border: #404040;
+                    --input-text: #ffffff;
+                    --btn-bg: #3b82f6;
+                    --btn-hover: #60a5fa;
+                    --btn-text: #ffffff;
+                    --label-color: #d1d5db;
+                    --header-border: #404040;
+                }
+            }
+
+            body {
+                width: 320px;
+                padding: 24px;
+                margin: 0;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                background: var(--bg-color);
+                color: var(--text-color);
+                transition: background 0.3s, color 0.3s;
+            }
+
+            h3 {
+                margin: 0 0 20px 0;
+                font-size: 18px;
+                font-weight: 600;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--header-border);
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 24px;
+            }
+
+            label {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--label-color);
+            }
+
+            input {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 10px 12px;
+                border-radius: 8px;
+                border: 1px solid var(--input-border);
+                background: var(--input-bg);
+                color: var(--input-text);
+                font-size: 14px;
+                outline: none;
+                transition: border-color 0.2s, box-shadow 0.2s;
+            }
+
+            input:focus {
+                border-color: var(--btn-bg);
+                box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+            }
+
+            button {
+                width: 100%;
+                padding: 10px;
+                background: var(--btn-bg);
+                color: var(--btn-text);
+                border: none;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.2s, transform 0.1s;
+            }
+
+            button:hover {
+                background: var(--btn-hover);
+            }
+
+            button:active {
+                transform: scale(0.98);
+            }
+            
+            .footer {
+                margin-top: 16px;
+                font-size: 11px;
+                color: var(--label-color);
+                text-align: center;
+                opacity: 0.7;
+            }
+        </style>
+    </head>
+    <body>
+        <h3>Settings</h3>
+        <div class="form-group">
+            <label for="apiKey">Gemini API Key</label>
+            <input type="password" id="apiKey" placeholder="Paste your API key here">
+        </div>
+        <button id="saveBtn">Save Settings</button>
+        <div class="footer">
+            Google Gemini API Key를 입력하여 요약 기능을 활성화하세요.
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>

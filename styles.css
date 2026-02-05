@@ -1,0 +1,484 @@
+/* CSS Variables for Theme Support - Syncing with Gemini Website Settings */
+:root {
+    /* Default: Light Mode (or body.light-theme) */
+    --toc-bg: #ffffff;
+    --toc-bg-expanded: #ffffff;
+    --toc-text: #1a1a2e;
+    --toc-subtitle: #4a5568;
+    --toc-accent: #1a73e8;
+    --toc-border: #DDDFDD;
+    --toc-item-bg: rgba(26, 115, 232, 0.04);
+    --toc-minimap-line: rgba(26, 115, 232, 0.2);
+    --toc-shadow: rgba(0, 0, 0, 0.06);
+}
+
+body.dark-theme {
+    --toc-bg: rgba(30, 31, 32, 0.9);
+    --toc-bg-expanded: linear-gradient(145deg, #2a2b2d, #1e1f20);
+    --toc-text: #e3e3e3;
+    --toc-subtitle: #9aa0a6;
+    --toc-accent: #8ab4f8;
+    --toc-border: rgba(255, 255, 255, 0.1);
+    --toc-item-bg: rgba(255, 255, 255, 0.05);
+    --toc-minimap-line: rgba(255, 255, 255, 0.3);
+    --toc-shadow: rgba(0, 0, 0, 0.5);
+}
+
+#gemini-toc-container {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    max-height: 85vh;
+    background: var(--toc-bg);
+    border: 1px solid var(--toc-border);
+    border-radius: 10px;
+    padding: 24px 8px; /* Consistent horizontal padding to prevent jumps */
+    color: var(--toc-text);
+    font-family: "Inter", sans-serif;
+    z-index: 10000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 4px 20px var(--toc-shadow);
+    backdrop-filter: blur(8px);
+    transition: 
+        width 0.25s cubic-bezier(0.2, 0, 0, 1),
+        padding 0.25s cubic-bezier(0.2, 0, 0, 1),
+        background 0.25s cubic-bezier(0.2, 0, 0, 1),
+        border-radius 0.25s cubic-bezier(0.2, 0, 0, 1);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    box-sizing: border-box;
+}
+
+#gemini-toc-container::-webkit-scrollbar {
+    display: none;
+}
+
+#gemini-toc-container:hover {
+    width: 320px;
+    /* right: 12px; Removed to prevent jitter at left edge */
+    background: var(--toc-bg-expanded);
+    padding: 24px 18px 24px 24px; /* More right padding for scrollbar clearance */
+    border-radius: 10px;
+    scrollbar-width: thin;
+}
+
+#gemini-toc-container:hover::-webkit-scrollbar {
+    display: block;
+    width: 6px;
+}
+
+#gemini-toc-container h3 {
+    width: 100%;
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--toc-text);
+    border-bottom: 2px solid var(--toc-border);
+    padding-bottom: 16px;
+    margin-bottom: 12px; /* Reduced from 20px for tighter layout */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s cubic-bezier(0.2, 0, 0, 1), visibility 0.25s cubic-bezier(0.2, 0, 0, 1);
+    white-space: nowrap;
+    text-align: left;
+}
+
+#gemini-toc-container:hover h3 {
+    visibility: visible;
+    opacity: 1;
+}
+
+#toc-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Removed hover alignment shift to prevent jitter */
+
+.toc-item {
+    width: 18px;
+    height: 4px;
+    margin: 0;
+    background: var(--toc-minimap-line);
+    border-radius: 2px;
+    cursor: pointer;
+    /* Specific properties only to avoid height-transition jumps. Background removed to allow instant switch */
+    transition: 
+        background 0.5s cubic-bezier(0.2, 0, 0, 1), /* Ultra smooth for active state change */
+        width 0.3s, 
+        padding 0.3s, 
+        transform 0.3s, 
+        opacity 0.3s;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.toc-item.active {
+    background: var(--toc-accent);
+    width: 22px;
+    height: 6px;
+}
+
+/* Light mode: no shadow for active and softer color */
+:root .toc-item.active {
+    background: rgba(26, 115, 232, 0.7);
+    box-shadow: none;
+}
+
+/* Dark mode: crisp white for active with no shadow */
+body.dark-theme .toc-item.active {
+    background: #ffffff;
+    box-shadow: none;
+}
+
+/* Active item in expanded view - more natural highlight */
+#gemini-toc-container:hover .toc-item.active {
+    background: rgba(138, 180, 248, 0.08);
+    border-color: rgba(138, 180, 248, 0.4);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#gemini-toc-container:hover .toc-item.active .toc-text {
+    color: var(--toc-accent);
+    /* font-weight: 600; Removed to prevent text layout shift (jitter) */
+    text-shadow: 0 0 0.5px var(--toc-accent); /* Simulate bold without width change */
+}
+
+#gemini-toc-container:hover .toc-item {
+    width: 100%;
+    height: auto;
+    background: var(--toc-item-bg);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--toc-text);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    
+    /* "Phantom Width" Trick: Force layout to calculate spread on full width immediately */
+    min-width: 270px; 
+    white-space: normal;
+    overflow: visible;
+
+    /* Only allow transition for transform to avoid jitter/flash on border */
+    transition: transform 0.3s;
+}
+
+
+.toc-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.toc-chevron {
+    font-size: 18px;
+    color: var(--toc-subtitle);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1;
+    margin-left: auto;
+    padding: 8px 12px; /* Increased hit area */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.toc-chevron:hover {
+    background: rgba(39, 105, 222, 0.15);
+    color: var(--toc-accent);
+}
+
+.toc-item.expanded .toc-chevron {
+    transform: rotate(-90deg); /* Points down */
+    color: var(--toc-accent);
+}
+
+.toc-item:hover {
+    background: rgba(39, 105, 222, 0.1);
+    border-color: var(--toc-accent);
+}
+
+.toc-text {
+    line-height: 1.4;
+    opacity: 0;
+    visibility: hidden;
+    /* Strict delay: Only show text after 0.4s to ensure container is fully fixed */
+    transition: opacity 0.25s cubic-bezier(0.2, 0, 0, 1), visibility 0.25s cubic-bezier(0.2, 0, 0, 1), color 0.25s;
+}
+
+#gemini-toc-container:hover .toc-text {
+    opacity: 1;
+    visibility: visible;
+}
+
+.toc-item:hover {
+    background: rgba(39, 105, 222, 0.1);
+    border-color: var(--toc-accent);
+}
+
+.toc-item:hover .toc-text {
+    color: var(--toc-accent);
+}
+
+.toc-chevron:hover {
+    background: rgba(39, 105, 222, 0.15);
+    border-radius: 6px;
+    color: var(--toc-accent);
+}
+
+.toc-sub-list {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.toc-item.expanded .toc-sub-list {
+    max-height: 500px;
+    opacity: 1;
+    visibility: visible;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.toc-sub-item {
+    padding-left: 14px;
+    font-size: 13px;
+    color: var(--toc-subtitle);
+    position: relative;
+    transition: none; /* Make sub-topics static */
+    cursor: default; /* Not independently clickable */
+}
+
+.toc-sub-item::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    opacity: 0.5;
+    font-size: 12px;
+}
+
+
+
+.toc-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+}
+
+#toc-refresh-btn, #toc-collapse-btn {
+    background: transparent;
+    border: none;
+    color: var(--toc-subtitle);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+#toc-refresh-btn:hover, #toc-collapse-btn:hover {
+    background: var(--toc-item-bg);
+    color: var(--toc-accent);
+}
+
+#toc-refresh-btn svg, #toc-collapse-btn svg {
+    transition: transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+#toc-refresh-btn.rotating svg {
+    animation: toc-spin 1s linear infinite;
+}
+
+@keyframes toc-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Retry button for error items */
+.toc-item-retry-btn {
+    background: transparent;
+    border: none;
+    color: var(--toc-subtitle);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    opacity: 0;
+    visibility: hidden;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+#gemini-toc-container:hover .toc-item-retry-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.toc-item-retry-btn:hover {
+    background: rgba(234, 67, 53, 0.15);
+    color: #ea4335;
+}
+
+.toc-item-retry-btn.rotating svg {
+    animation: toc-spin 1s linear infinite;
+}
+
+/* Custom scrollbar */
+#gemini-toc-container::-webkit-scrollbar {
+    width: 6px;
+}
+#gemini-toc-container::-webkit-scrollbar-thumb {
+    background: var(--toc-border);
+    border-radius: 10px;
+}
+#gemini-toc-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* API Warning Styles */
+.toc-api-warning {
+    color: #ff6b6b;
+    padding: 0 0 12px 0;
+    text-align: center; /* Changed from left to center for minimized state */
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center icon in minimized state */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.warning-icon {
+    font-size: 10px; /* Smaller icon as requested */
+    cursor: help;
+}
+
+.warning-text {
+    display: none;
+    font-size: 12px;
+    margin-left: 6px;
+    white-space: nowrap;
+}
+
+/* Maximized State (Hover) */
+#gemini-toc-container:hover .toc-api-warning {
+    justify-content: flex-start; /* Align left when expanded */
+    text-align: left;
+}
+
+#gemini-toc-container:hover .warning-text {
+    display: inline-block;
+}
+
+/* Initial Generation Button Styles */
+.toc-init-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.toc-generate-btn {
+    background: transparent;
+    color: var(--toc-text);
+    border: 1px solid var(--toc-border);
+    border-radius: 18px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+.toc-generate-btn .btn-text {
+    display: none;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+#gemini-toc-container:hover .toc-generate-btn {
+    width: 120px;
+    padding: 6px 14px;
+    border-radius: 10px;
+    opacity: 1;
+}
+
+#gemini-toc-container:hover .toc-generate-btn .btn-text {
+    display: inline;
+}
+
+.toc-generate-btn:hover {
+    background: var(--toc-item-bg);
+    border-color: var(--toc-subtitle);
+    transform: translateY(-1px);
+}
+
+#gemini-toc-container:hover .toc-generate-btn:disabled {
+    opacity: 0.3;
+}
+
+.toc-generate-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    filter: grayscale(1);
+    background: transparent;
+    border-color: var(--toc-border);
+}
+
+.toc-generate-btn:disabled:hover {
+    transform: none;
+    background: transparent;
+    border-color: var(--toc-border);
+}
+
+.toc-generate-btn:active {
+    transform: translateY(0);
+}
