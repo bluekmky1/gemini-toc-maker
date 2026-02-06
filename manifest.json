@@ -4,8 +4,7 @@
     "version": "1.0",
     "description": "Gemini 채팅에서 AI가 자동으로 목차를 생성합니다. 긴 대화도 한눈에 파악하고 빠르게 이동하세요.",
     "permissions": [
-        "storage",
-        "scripting"
+        "storage"
     ],
     "host_permissions": [
         "https://gemini.google.com/*",
@@ -31,8 +30,8 @@
         }
     ],
     "icons": {
-        "16": "icons/icon16.png",
-        "48": "icons/icon48.png",
-        "128": "icons/icon128.png"
+        "16": "icons/weblogo.png",
+        "48": "icons/weblogo.png",
+        "128": "icons/weblogo.png"
     }
 }

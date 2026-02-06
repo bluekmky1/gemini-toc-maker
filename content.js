@@ -17,15 +17,18 @@ const messages = {
         apiKeyWarning: "API Key 설정 필요",
         collapse: "모두 접기",
         refresh: "목차 새로고침",
-        generateToC: "목차 생성"
-    },
-    en: {
-        title: "Table of Contents",
-        summarizing: "Summarizing...",
-        apiKeyWarning: "API Key Required",
-        collapse: "Collapse All",
         refresh: "Regenerate ToC",
-        generateToC: "Generate ToC"
+        generateToC: "Generate ToC",
+        donate: "Buy me a coffee"
+    },
+    ko: {
+        title: "목차",
+        summarizing: "요약중...",
+        apiKeyWarning: "API Key 설정 필요",
+        collapse: "모두 접기",
+        refresh: "목차 새로고침",
+        generateToC: "목차 생성",
+        donate: "개발자에게 커피 한 잔 ☕️"
     }
 };
 
@@ -44,6 +47,15 @@ function createToCContainer() {
         <h3>
             <span>${getMsg('title')}</span>
             <div class="toc-header-actions">
+                <a id="toc-donate-btn" href="https://buymeacoffee.com/majaehoon" target="_blank" title="${getMsg('donate')}">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                        <line x1="6" y1="1" x2="6" y2="4"></line>
+                        <line x1="10" y1="1" x2="10" y2="4"></line>
+                        <line x1="14" y1="1" x2="14" y2="4"></line>
+                    </svg>
+                </a>
                 <button id="toc-collapse-btn" title="${getMsg('collapse')}">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 2v6"></path>

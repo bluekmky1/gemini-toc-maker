@@ -39,8 +39,8 @@ _(Link will be updated once the extension is published)_
 2. **Open Gemini**:
    - Go to [gemini.google.com](https://gemini.google.com).
    - Open any chat.
-   - You will see a "Table of Contents" panel appear on the right side of the
-     screen.
+   - Click the **"Generate ToC"** button in the sidebar to create the Table of
+     Contents.
 
 ## 🛠️ Tech Stack
 

@@ -296,7 +296,7 @@ body.dark-theme .toc-item.active {
     margin-left: auto;
 }
 
-#toc-refresh-btn, #toc-collapse-btn {
+#toc-refresh-btn, #toc-collapse-btn, #toc-donate-btn {
     background: transparent;
     border: none;
     color: var(--toc-subtitle);
@@ -307,14 +307,15 @@ body.dark-theme .toc-item.active {
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
+    text-decoration: none; /* For the anchor tag */
 }
 
-#toc-refresh-btn:hover, #toc-collapse-btn:hover {
+#toc-refresh-btn:hover, #toc-collapse-btn:hover, #toc-donate-btn:hover {
     background: var(--toc-item-bg);
     color: var(--toc-accent);
 }
 
-#toc-refresh-btn svg, #toc-collapse-btn svg {
+#toc-refresh-btn svg, #toc-collapse-btn svg, #toc-donate-btn svg {
     transition: transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
 
@@ -482,3 +483,5 @@ body.dark-theme .toc-item.active {
 .toc-generate-btn:active {
     transform: translateY(0);
 }
+
+
